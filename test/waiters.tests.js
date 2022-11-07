@@ -19,21 +19,21 @@ describe('tests', async function () {
         assert.deepEqual({ code: 'MJr4yl', username: 'Mjita' }, await waiterOutput.theWorkers());
     });
 
-    it('It must save a day and show people select that day', async function () {
-        let waiterOutput = Waitersfunc(db);
+    // it('It must save a day and show people select that day', async function () {
+    //     let waiterOutput = Waitersfunc(db);
 
-        await waiterOutput.setUsername("Abongile", "MJr4yl");
-        await waiterOutput.setWeek(["Monday", 'Friday'], "Abongile");
+    //     await waiterOutput.setUsername("Abongile", "MJr4yl");
+    //     await waiterOutput.setWeek(["Monday", 'Friday'], "Abongile");
         
-        assert.deepEqual([
-            {
-                username: 'Abongile',
-                workday: 'Monday'
-            }
+    //     assert.deepEqual([
+    //         {
+    //             username: 'Abongile',
+    //             workday: 'Monday'
+    //         }
 
-        ], await waiterOutput.JoinTables('Monday')
-        );
-    });
+    //     ], await waiterOutput.JoinTables('Monday')
+    //     );
+    // });
 
     // it('It must save a day and show people select that day', async function () {
     //     let waiterOutput = Waitersfunc(db);
@@ -58,33 +58,33 @@ describe('tests', async function () {
         assert.equal('Mjita', await waiterOutput.getUsername('MJr4yl')
         );
     });
-     
-    it('It must be able to return the colors', async function () {
-        let waiterOutput = waitersfac(db);
-        await waiterOutput.setUsername("landani", "MJr4yl");
-        await waiterOutput.setUsername("Unalo", "MJrt4");
-        await waiterOutput.setUsername("Mark", "MJrt4");
-        await waiterOutput.setUsername("Zack", "MJrt4");
-        await waiterOutput.setUsername("Welele", "MJrt4");
+
+    // it('It must be able to return the colors', async function () {
+    //     let waiterOutput = waitersfac(db);
+    //     await waiterOutput.setUsername("landani", "MJr4yl");
+    //     await waiterOutput.setUsername("Unalo", "MJrt4");
+    //     await waiterOutput.setUsername("Mark", "MJrt4");
+    //     await waiterOutput.setUsername("Zack", "MJrt4");
+    //     await waiterOutput.setUsername("Welele", "MJrt4");
 
 
-        await waiterOutput.setWeek(["Monday", "Friday", "Sunday"], "landani");
-        await waiterOutput.setWeek(["Monday", "Tuesday", "Friday"], "Unalo");
-        await waiterOutput.setWeek(["Monday", "Tuesday", "Sunday"], "Mark");
-        await waiterOutput.setWeek(["Monday", "Sunday", "Wednesday"], "Zack");
-        assert.deepEqual(
-            [{
+    //     await waiterOutput.setWeek(["Monday", "Friday", "Sunday"], "landani");
+    //     await waiterOutput.setWeek(["Monday", "Tuesday", "Friday"], "Unalo");
+    //     await waiterOutput.setWeek(["Monday", "Tuesday", "Sunday"], "Mark");
+    //     await waiterOutput.setWeek(["Monday", "Sunday", "Wednesday"], "Zack");
+    //     assert.deepEqual(
+    //         [{
 
-                state: "overwaiters",
-                weekday: "Tuesday"
-            },
+    //             state: "overwaiters",
+    //             weekday: "Tuesday"
+    //         },
 
-            {
-                state: "enough-waiters",
-                weekday: "Tuesday"
-            }
-            ], await waiterOutput.getColors())
-    });
+    //         {
+    //             state: "enough-waiters",
+    //             weekday: "Tuesday"
+    //         }
+    //         ], await waiterOutput.getColors())
+    // });
 
     it('It must be able to delete all names', async function () {
         let waiterOutput = Waitersfunc(db);
