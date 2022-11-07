@@ -16,7 +16,7 @@ app.set('view engine', 'handlebars');
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
-
+// waitersapp
 
 // create database akhe;
 // create role sibone login password 'sibone123';
