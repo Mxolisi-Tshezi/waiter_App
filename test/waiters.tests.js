@@ -23,17 +23,12 @@ describe('tests', async function () {
     //     let waiterOutput = Waitersfunc(db);
 
     //     await waiterOutput.setUsername("Abongile", "MJr4yl");
-    //     await waiterOutput.setWeek(["Monday", 'Friday'], "Abongile");
-        
-    //     assert.deepEqual([
-    //         {
-    //             username: 'Abongile',
-    //             workday: 'Monday'
-    //         }
+    //     await waiterOutput.setWeek("Abongile",["Monday"]);
 
-    //     ], await waiterOutput.JoinTables('Monday')
-    //     );
-    // });
+    //     let siyabona = await waiterOutput.JoinTables('Monday')
+
+    //     assert.equal(1,siyabona.length);
+    // })
 
     // it('It must save a day and show people select that day', async function () {
     //     let waiterOutput = Waitersfunc(db);
