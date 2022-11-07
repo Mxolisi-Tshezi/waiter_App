@@ -13,20 +13,12 @@ describe('tests', async function () {
     this.beforeEach(async function () {
         await db.none('DELETE FROM workers')
     });
+
     it('It must retrieve name and authentication code', async function () {
         let waiterOutput = Waitersfunc(db);
         await waiterOutput.setUsername("Mjita", "MJr4yl");
         assert.deepEqual({ code: 'MJr4yl', username: 'Mjita' }, await waiterOutput.theWorkers());
     });
-
-
-    // it('It must save a day and show people select that day', async function () {
-    //     let waiterOutput = Waitersfunc(db)
-
-    //     await waiterOutput.setUsername("Abongile", "tRL4y")
-    //     await waiterOutput.setWeek(["Tuesday", 'Tuesday'], "Abongile")
-    //     assert.deepEqual([{username: 'Abongile', workday: 'Tuesday'}], await waiterOutput.JoinTables('Tuesday'));
-    // });
 
 
 
@@ -38,43 +30,67 @@ describe('tests', async function () {
         );
     });
 
-    // it('It must be able to return the colors', async function () {
-    //     let waiterOutput = waitersfac(db);
-    //     await waiterOutput.setUsername("landani", "MJr4yl");
-    //     await waiterOutput.setUsername("Unalo", "MJrt4");
-    //     await waiterOutput.setUsername("Mark", "MJrt4");
-    //     await waiterOutput.setUsername("Zack", "MJrt4");
-    //     await waiterOutput.setUsername("Welele", "MJrt4");
-
-
-    //     await waiterOutput.setWeek(["Monday", "Friday", "Sunday"], "landani");
-    //     await waiterOutput.setWeek(["Monday", "Tuesday", "Friday"], "Unalo");
-    //     await waiterOutput.setWeek(["Monday", "Tuesday", "Sunday"], "Mark");
-    //     await waiterOutput.setWeek(["Monday", "Sunday", "Wednesday"], "Zack");
-    //     assert.deepEqual(
-    //         [{
-
-    //             state: "overwaiters",
-    //             weekday: "Tuesday"
-    //         },
-
-    //         {
-    //             state: "enough-waiters",
-    //             weekday: "Tuesday"
-    //         }
-    //         ], await waiterOutput.getColors())
-    // });
-
     it('It must be able to delete all names', async function () {
         let waiterOutput = Waitersfunc(db);
         await waiterOutput.setUsername("landani")
         await waiterOutput.setUsername("Unalo")
         await waiterOutput.setUsername("Mark")
 
-        await waiterOutput.deleteWaiters()
-        let results= await db.any('SELECT * FROM admins')
+        await waiterOutput.removeNames()
+        let results = await db.any('SELECT * FROM admins')
         assert.deepEqual([], results);
 
     });
+
+    it("Must be able to return how many waiters are working for a Monday", async function () {
+        const waiterOutput = Waitersfunc(db);
+        await waiterOutput.setUsername('Lexi', '3nl0v')
+        await waiterOutput.setUsername('Lihle', 'VAqmF')
+        await waiterOutput.setUsername('Asana', ' qWd4p')
+
+        await waiterOutput.setWeek(['Monday'], 'Lexi')
+        await waiterOutput.setWeek(['Monday'], 'Lihle')
+        await waiterOutput.setWeek(['Monday'], 'Asana')
+
+
+        let weekdays = await waiterOutput.JoinTables('Tuesday')
+
+        assert.equal(0, weekdays.length);
+
+    })
+
+
+    it('It must save a day and show people select that day', async function () {
+        let waiterOutput = Waitersfunc(db)
+        await waiterOutput.setUsername('Lexi', '3nl0v')
+        await waiterOutput.setWeek(['Monday'], 'Lexi')
+
+
+
+    });
+
+    // it("should indidcate the colour if morethan 3 days selected", async function () {
+    //     const waiters = Waitersfunc(db);
+    //     await waiters.setUsername('Mnad','3nl0v')
+    //     await waiters.setUsername('Mkonto','qWd4p')
+    //     await waiters.setUsername('Thesi','hqB80')
+    //     await waiters.setUsername('Okule','ZdZS5')
+
+    //     await waiters.setWeek(['Friday'],'Mnad')
+    //     await waiters.setWeek(['Friday'],'Mkonto')
+    //     await waiters.setWeek(['Friday'],'Thesi')
+    //     await waiters.setWeek(['Friday'],'Okule')
+       
+    //     let colors = await waiters.getColors()
+    //     let friday = colors.find(workday => {
+    //       if(workday.id == 6){
+    //         return workday
+    //       }
+    //     })
+       
+    //     assert.equal( 'overwaiters',friday.state);
+       
+     
+    //   })
 
 });

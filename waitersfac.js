@@ -20,7 +20,7 @@ return user_id.id
 
     for (let i = 0; i < day.length; i++) {
       const weekday = day[i];
-      let day_id = await db.one('SELECT id FROM workdays WHERE workday=$1', [weekday])
+      let day_id = await db.manyOrNone('SELECT id FROM workdays WHERE workday=$1', [weekday])
       await db.none('INSERT INTO admins(day_id, user_id) values($1, $2)', [day_id.id, user_id.id])
 
     }
@@ -45,7 +45,7 @@ return user_id.id
     return output;
   }
 
-  async function deleteWaiters(){
+  async function removeNames(){
     let output= await db.none('DELETE FROM admins')
 
 }
@@ -113,7 +113,7 @@ return user_id.id
     getColors,
     authCode,
     usernameID,
-    deleteWaiters
+    removeNames
   }
   
 }
