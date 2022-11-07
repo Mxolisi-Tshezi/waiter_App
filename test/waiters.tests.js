@@ -18,31 +18,13 @@ describe('tests', async function () {
         await waiterOutput.setUsername("Mjita", "MJr4yl");
         assert.deepEqual({ code: 'MJr4yl', username: 'Mjita' }, await waiterOutput.theWorkers());
     });
-
-    // it('It must save a day and show people select that day', async function () {
-    //     let waiterOutput = Waitersfunc(db);
-
-    //     await waiterOutput.setUsername("Abongile", "MJr4yl");
-    //     await waiterOutput.setWeek("Abongile",["Monday"]);
-
-    //     let siyabona = await waiterOutput.JoinTables('Monday')
-
-    //     assert.equal(1,siyabona.length);
-    // })
-
-    // it('It must save a day and show people select that day', async function () {
-    //     let waiterOutput = Waitersfunc(db);
-    //     await waiterOutput.setUsername("Anelisa", "tRL4y");
-    //     await waiterOutput.setUsername("Abongile", "tRL4y");
-    //     await waiterOutput.setWeek(["Tuesday", 'Tuesday'], "Abongile");
-    //     assert.deepEqual([
-    //         {
-    //             username: 'Walingo',
-    //             workday: 'Tuesday'
-    //         }
-
-    //     ], await waiterOutput.JoinTables('Tuesday'));
-    // });
+    
+    it('It must save a day and show people select that day', async function () {
+        let waiterOutput = Waitersfunc(db);
+        await waiterOutput.setUsername("Abongile", "tRL4y");
+        await waiterOutput.setWeek(["Tuesday", 'Tuesday'], "Abongile");
+        assert.deepEqual([{username: 'Abongile', workday: 'Tuesday'}], await waiterOutput.JoinTables('Tuesday'));
+    });
 
 
 
