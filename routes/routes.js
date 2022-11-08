@@ -1,3 +1,5 @@
+const ShortUniqueId = require('short-unique-id')
+const uid = new ShortUniqueId({ length: 5 })
 module.exports = function waiterRoutes(waitersfunc2) {
 
     function index(req, res) {

@@ -1,6 +1,3 @@
-const ShortUniqueId = require('short-unique-id')
-const uid = new ShortUniqueId({ length: 5 })
-
 const express = require('express');
 const app = express();
 const exphbs = require("express-handlebars")
