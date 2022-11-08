@@ -7,9 +7,10 @@ const exphbs = require("express-handlebars")
 const bodyParser = require('body-parser');
 const flash = require('express-flash')
 const session = require('express-session')
-const Waitersfunc = require('./waitersfac')
-const waitersfunc2 = Waitersfunc(db)
 const pgp = require('pg-promise')({});
+const Waitersfunc = require('./waitersfac')
+const WaiterRoutes= require('./routes/routes')
+
 
 
 app.engine('handlebars', exphbs.engine({ defaultLayout: 'main' }));
@@ -17,6 +18,7 @@ app.set('view engine', 'handlebars');
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
+// waitersapp
 
 // create database akhe;
 // create role sibone login password 'sibone123';
@@ -43,34 +45,36 @@ app.use(express.static('public'))
 
 const db = pgp(config);
 
-const Routes= require('./routes/routesfunc')
-const Routes= Routes(waitersfunc2)
+const waitersfunc2 = Waitersfunc(db)
+const waiterRoutes= WaiterRoutes(waitersfunc2)
 
-app.get('/', Routes.index)
+app.get('/', waiterRoutes.index)
+
+app.get('/admin', waiterRoutes.Admin)
+
+app.post('/admin', waiterRoutes.admin)
+
+app.get('/waiter', waiterRoutes.waiter)
+app.post('/adduser', waiterRoutes.adduser)
+
+app.get('/login', waiterRoutes.login)
+
+app.post('/login', waiterRoutes.login2)
+
+app.get('/waiters/:username', waiterRoutes.selectDay)
 
 
-app.get('/admin', Routes.Admin)
+app.post('/waiters/:name', waiterRoutes.workDayCheck)
 
 
-app.post('/admin', Routes.admin)
+app.get('/delete', waiterRoutes.deleteWaiters)
 
-app.get('/waiter', Routes.waiter)
 
-app.post('/adduser', Routes.adduser)
+app.get('/days', waiterRoutes.shedulingDay)
 
-app.get('/login', Routes.login)
-app.post('/login', Routes.login2)
-app.get('/waiters/:username', Routes.selectDay)
-app.post('/waiters/:name', Routes.workDayCheck)
-app.get('/delete', Routes.deleteWaiters)
-app.get('/days', Routes.shedulingDay)
-app.get('/logout', Routes.home)
-// setTimeout(() => {
-//    const box = document.getElementById('succesmsg');
- 
-//    // 👇️ hides element (still takes up space on page)
-//    box.style.visibility = 'hidden';
-//  }, 1000);
+
+app.get('/logout', waiterRoutes.home)
+
 
 const PORT = process.env.PORT || 1923
 app.listen(PORT, function () {
