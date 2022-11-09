@@ -6,25 +6,25 @@ const flash = require('express-flash')
 const session = require('express-session')
 const pgp = require('pg-promise')({});
 const Waitersfunc = require('./waitersfac')
-const WaiterRoutes= require('./routes/routes')
+const WaiterRoutes = require('./routes/routes')
 
 
 
-app.engine('handlebars', exphbs.engine({ defaultLayout: 'main' }));
+app.engine('handlebars', exphbs.engine({
+   defaultLayout: 'main'
+}));
 app.set('view engine', 'handlebars');
 
-app.use(express.urlencoded({ extended: false }))
+app.use(express.urlencoded({
+   extended: false
+}))
 app.use(express.json())
-// waitersapp
 
-// create database akhe;
-// create role sibone login password 'sibone123';
-// grant all privileges on database akhe to sibone;
 const DATABASE_URL = process.env.DATABASE_URL || "postgresql://sibone:sibone123@localhost:5432/akhe";
 const config = {
    connectionString: DATABASE_URL
 }
-if(process.env.NODE_ENV === "production"){
+if (process.env.NODE_ENV === "production") {
    config.ssl = {
       rejectUnauthorized: false
    }
@@ -43,7 +43,7 @@ app.use(express.static('public'))
 const db = pgp(config);
 
 const waitersfunc2 = Waitersfunc(db)
-const waiterRoutes= WaiterRoutes(waitersfunc2)
+const waiterRoutes = WaiterRoutes(waitersfunc2)
 
 app.get('/', waiterRoutes.index)
 

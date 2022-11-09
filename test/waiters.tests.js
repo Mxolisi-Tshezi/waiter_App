@@ -22,7 +22,7 @@ describe('tests', async function () {
 
 
 
-    it('Must return authentication code', async function () {
+    it('Must return name by authentication code', async function () {
         let waiterOutput = Waitersfunc(db);
         await waiterOutput.setUsername("Mjita", "MJr4yl");
 
@@ -39,6 +39,14 @@ describe('tests', async function () {
         await waiterOutput.removeNames()
         let results = await db.any('SELECT * FROM admins')
         assert.deepEqual([], results);
+
+    });
+    it('It must save a day and show people select that day', async function () {
+        let waiterOutput = Waitersfunc(db)
+        await waiterOutput.setUsername('Lexi', '3nl0v')
+        await waiterOutput.setWeek(['Monday'], 'Lexi')
+
+
 
     });
 
@@ -60,37 +68,6 @@ describe('tests', async function () {
     })
 
 
-    it('It must save a day and show people select that day', async function () {
-        let waiterOutput = Waitersfunc(db)
-        await waiterOutput.setUsername('Lexi', '3nl0v')
-        await waiterOutput.setWeek(['Monday'], 'Lexi')
-
-
-
-    });
-
-    // it("should indidcate the colour if morethan 3 days selected", async function () {
-    //     const waiters = Waitersfunc(db);
-    //     await waiters.setUsername('Mnad','3nl0v')
-    //     await waiters.setUsername('Mkonto','qWd4p')
-    //     await waiters.setUsername('Thesi','hqB80')
-    //     await waiters.setUsername('Okule','ZdZS5')
-
-    //     await waiters.setWeek(['Friday'],'Mnad')
-    //     await waiters.setWeek(['Friday'],'Mkonto')
-    //     await waiters.setWeek(['Friday'],'Thesi')
-    //     await waiters.setWeek(['Friday'],'Okule')
-       
-    //     let colors = await waiters.getColors()
-    //     let friday = colors.find(workday => {
-    //       if(workday.id == 6){
-    //         return workday
-    //       }
-    //     })
-       
-    //     assert.equal( 'overwaiters',friday.state);
-       
-     
-    //   })
+  
 
 });
